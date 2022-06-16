@@ -50,7 +50,7 @@
   INSTALL_APPLE_SOFTWARE_UPDATES=false
 
 ###################################################################################################
-# Install Python 3 and requests modeule
+# Install Python 3 and requests module
 ###################################################################################################
   /usr/local/bin/jamf policy -event installPython3
   
@@ -535,7 +535,7 @@ fi
 # Nice completion text
   echo "Status: $TIME_TAKEN" >> "$DEP_NOTIFY_LOG"
 
-# Run the Jamf Manage Command to force profiles. 
+# Run the Jamf Manage command to force profiles 
   /usr/local/bin/jamf manage
 
 # Hide DEPNotify app
