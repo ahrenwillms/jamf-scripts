@@ -528,17 +528,16 @@ fi
 # Record the end time
   END_TIME=$(date +%s);
   
-# Append the time taken to the Install Complete Text
+# Calculate time taken and format string for display 
   TIME_TAKEN=$(echo $((END_TIME-START_TIME)) | awk '{printf " %d minutes and %d seconds", ($1/60)%60, $1%60}')
-# INSTALL_COMPLETE_TEXT+=$TIME_TAKEN
 
-# Nice completion text
+# Change status text to display time taken
   echo "Status: $TIME_TAKEN" >> "$DEP_NOTIFY_LOG"
 
 # Run the Jamf Manage command to force profiles 
   /usr/local/bin/jamf manage
 
-# Hide DEPNotify app
+# Hide DEPNotify app in Finder
   /usr/bin/chflags hidden /Applications/Utilities/DEPNotify.app
 
 ################################################################
