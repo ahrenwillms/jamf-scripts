@@ -85,10 +85,13 @@
 # If this variable is left blank, the generic banner will appear
   BANNER_TITLE="ORGANIZATION_NAME"
 
+# Determine computer model
+  COMPUTER_MODEL=$(system_profiler SPHardwareDataType | grep "Model Name" | awk -F": " '{print $2}')
+
 # Paragraph text that will display under the main heading. For a new line, use \n
 # If this variable is left blank, the generic message will appear. Leave single
 # quotes below as double quotes will break the new lines.
-  MAIN_TEXT="Configuring this Mac for: \n $COMPUTER_NAME \n \n This process should take 20 to 30 minutes to complete."
+  MAIN_TEXT="Configuring this $COMPUTER_MODEL for: \n $COMPUTER_NAME \n \n This process should take 20 to 30 minutes to complete."
 
 # Initial Start Status text that shows as things are firing up
   INITAL_START_STATUS="Initial Configuration Starting..."
