@@ -29,7 +29,8 @@ TOKEN=$( /usr/bin/osascript -l 'JavaScript' -e "JSON.parse(\`$JSON_RESPONSE\`).t
 COMPUTER_RECORD=$( /usr/bin/curl -s "${JSS_URL}api/v1/computers-inventory?section=USER_AND_LOCATION&filter=udid%3D%3D%22${HARDWARE_UDID}%22" -H "authorization: Bearer ${TOKEN}" )
 ID=$( /usr/bin/osascript -l 'JavaScript' -e "JSON.parse(\`$COMPUTER_RECORD\`).results[0].id" )
 
-echo "Jamf Computer ID: $id"
+# Print the Jamf Computer ID. Uncomment for debugging
+# echo "Jamf Computer ID: $ID"
 
 # Enable Remote Desktop
 /usr/bin/curl -s "${JSS_URL}JSSResource/computercommands/command/EnableRemoteDesktop/id/$ID" -H "authorization: Bearer ${TOKEN}" -X POST
