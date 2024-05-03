@@ -42,14 +42,6 @@
   TESTING_MODE=false # Set variable to true or false
 
 ###################################################################################################
-# Install Apple Software Updates
-###################################################################################################
-# Set to True to have available Apple software updates installed after the policy array. The machine
-# will prompt for a restart
-# Set to False to not install available Apple software updates. The machine will prompt to quit instead
-  INSTALL_APPLE_SOFTWARE_UPDATES=false
-
-###################################################################################################
 # Install Python 3 and requests module
 ###################################################################################################
   /usr/local/bin/jamf policy -event installPython3
@@ -102,13 +94,10 @@
   COMPLETE_METHOD_DROPDOWN_ALERT=false # Set variable to true or false
 
 # Text that will display inside the alert once policies have finished
-  if [[ $INSTALL_APPLE_SOFTWARE_UPDATES == true ]]; then
-      COMPLETE_MAIN_TEXT='Configuration Complete! Click the button below to restart'
-  else
-      COMPLETE_MAIN_TEXT='Configuration Complete! Click the button below to quit'
-  fi
+
+  COMPLETE_MAIN_TEXT='Configuration Complete! Click the button below to quit'
+
   COMPLETE_BUTTON_TEXT="Quit"
-  COMPLETE_BUTTON_RESTART_TEXT="Restart"
 
 #########################################################################################
 # Plist Configuration
@@ -505,8 +494,7 @@ fi
 
 # Loop to run policies
   ARRAY_LENGTH="$((${#POLICY_ARRAY[@]}+ADDITIONAL_OPTIONS_COUNTER))"
-  # Add 1 for Apple Software Updates
-  ARRAY_LENGTH++  
+
   echo "Command: Determinate: $ARRAY_LENGTH" >> "$DEP_NOTIFY_LOG"
   for POLICY in "${POLICY_ARRAY[@]}"; do
     echo "Status: $(echo "$POLICY" | cut -d ',' -f1)" >> "$DEP_NOTIFY_LOG"
@@ -516,14 +504,6 @@ fi
       "$JAMF_BINARY" policy -event "$(echo "$POLICY" | cut -d ',' -f2)"
     fi
   done
-
-################################################################
-# Install Apple Software Updates
-################################################################
-if [[ $INSTALL_APPLE_SOFTWARE_UPDATES == true ]]; then
-    echo "Status: Installing Apple Software Updates" >> "$DEP_NOTIFY_LOG"
-    /usr/sbin/softwareupdate -i -a
-fi
 
 # Force Quit Microsoft AutoUpdate
   /usr/bin/killall -9 "Microsoft AutoUpdate"
@@ -548,17 +528,13 @@ fi
 ################################################################
 
 echo "Command: MainText: $COMPLETE_MAIN_TEXT" >> "$DEP_NOTIFY_LOG"
-if [[ $INSTALL_APPLE_SOFTWARE_UPDATES == true ]]; then
-    echo "Command: ContinueButtonRestart: $COMPLETE_BUTTON_RESTART_TEXT" >> "$DEP_NOTIFY_LOG"
-else
-    echo "Command: ContinueButton: $COMPLETE_BUTTON_TEXT" >> "$DEP_NOTIFY_LOG"
-fi
+echo "Command: ContinueButton: $COMPLETE_BUTTON_TEXT" >> "$DEP_NOTIFY_LOG"
 
 ################################################################
 # Play a sound to indicate that the process is complete
 ################################################################
-sudo osascript -e "set Volume 10"
+osascript -e "set Volume 10"
 afplay /System/Library/Sounds/Basso.aiff
-sudo osascript -e "set Volume 5"
+osascript -e "set Volume 5"
 
 exit 0
