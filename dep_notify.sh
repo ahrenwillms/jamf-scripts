@@ -66,7 +66,7 @@
   FULLSCREEN=true
 
 # Download Banner Image
-  curl -o /tmp/banner_image.png http://YOUR_URL/banner_image.png
+  curl -o /tmp/banner_image.png https://YOUR_URL/banner_image.png
 
 # Banner image can be 600px wide by 100px high. Images will be scaled to fit
 # If this variable is left blank, the generic image will appear. If using custom Self
@@ -533,8 +533,8 @@ echo "Command: ContinueButton: $COMPLETE_BUTTON_TEXT" >> "$DEP_NOTIFY_LOG"
 ################################################################
 # Play a sound to indicate that the process is complete
 ################################################################
-osascript -e "set Volume 10"
+osascript -e "set Volume 7"
 afplay /System/Library/Sounds/Basso.aiff
-osascript -e "set Volume 5"
+osascript -e "set Volume 3.5"
 
 exit 0
