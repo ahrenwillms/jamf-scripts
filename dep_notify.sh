@@ -505,8 +505,11 @@ fi
     fi
   done
 
-# Force Quit Microsoft AutoUpdate
-  /usr/bin/killall -9 "Microsoft AutoUpdate"
+################################################################
+# The Microsoft AutoUpdate Required Data Notice dialog window will appear by default
+# This can be suppressed via a configuration profile
+# See: https://www.kevinmcox.com/2024/04/changes-to-microsoft-autoupdates-required-data-notice/
+################################################################
 
 # Record the end time
   END_TIME=$(date +%s);
